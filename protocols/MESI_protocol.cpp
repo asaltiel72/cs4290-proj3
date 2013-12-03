@@ -226,6 +226,7 @@ inline void MESI_protocol::do_snoop_S (Mreq *request)
 inline void MESI_protocol::do_snoop_SM (Mreq *request){
 	switch (request->msg) {
 		case GETS:
+			set_shared_line();
 			break;
 		case GETM:
 			state = MESI_CACHE_IM;
@@ -251,6 +252,7 @@ inline void MESI_protocol::do_snoop_E (Mreq *request)
 			break;
 		case GETM:
 			state = MESI_CACHE_I;
+			set_shared_line();
 			send_DATA_on_bus(request->addr,request->src_mid);
 			break;
 		case DATA:
@@ -273,6 +275,7 @@ inline void MESI_protocol::do_snoop_M (Mreq *request)
 			break;
 		case GETM:
 			state = MESI_CACHE_I;
+			set_shared_line();
 			send_DATA_on_bus(request->addr,request->src_mid);
 			break;
 		case DATA:
