@@ -196,8 +196,8 @@ inline void MESI_protocol::do_snoop_IM (Mreq *request){
 		case GETS:
 		case GETM: break;
 		case DATA:
-			send_DATA_to_proc(request->addr);
 			state = MESI_CACHE_M;
+			send_DATA_to_proc(request->addr);
 			break;
 		default:
 		    request->print_msg (my_table->moduleID, "ERROR");
@@ -209,6 +209,7 @@ inline void MESI_protocol::do_snoop_S (Mreq *request)
 {
 	switch (request->msg) {
 		case GETS:	// stay in S
+			set_shared_line();
     		break;
 		case GETM:  // invalidate
     		state = MESI_CACHE_I;
@@ -250,7 +251,6 @@ inline void MESI_protocol::do_snoop_E (Mreq *request)
 			break;
 		case GETM:
 			state = MESI_CACHE_I;
-			set_shared_line();
 			send_DATA_on_bus(request->addr,request->src_mid);
 			break;
 		case DATA:
@@ -273,7 +273,6 @@ inline void MESI_protocol::do_snoop_M (Mreq *request)
 			break;
 		case GETM:
 			state = MESI_CACHE_I;
-			set_shared_line();
 			send_DATA_on_bus(request->addr,request->src_mid);
 			break;
 		case DATA:
