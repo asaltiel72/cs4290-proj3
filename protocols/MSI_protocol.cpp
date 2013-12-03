@@ -190,14 +190,7 @@ inline void MSI_protocol::do_snoop_I (Mreq *request)
 inline void MSI_protocol::do_snoop_IS (Mreq *request){
 	switch (request->msg) {
 		case GETS:
-			/** While in IS we will see our own GETS on the bus.  We should just
-			 * ignore it and wait for DATA to show up.
-			 */
-			 break;
 		case GETM:
-			// Should not see a GETM since t is waiting for data to transition to S
-			//request->print_msg (my_table->moduleID, "ERROR");
-		    //fatal_error ("Client: GETM seen while in IS\n");
 		    break;
 		case DATA:
 			/** IS state meant that the block had sent the GETS and was waiting on DATA.
@@ -252,7 +245,7 @@ inline void MSI_protocol::do_snoop_S (Mreq *request)
 	switch (request->msg) {
 		case GETS:	// stay in S
     		break;
-		case GETM:  // invalidate here and send value ?
+		case GETM:  // invalidate
     		state = MSI_CACHE_I;
     		break;
 		case DATA:	// shouldn't get data here
@@ -269,11 +262,10 @@ inline void MSI_protocol::do_snoop_M (Mreq *request)
 {
 	switch (request->msg) {
 		case GETS:
-			// writeback the data
 			// send data out
 			set_shared_line();
 			send_DATA_on_bus(request->addr,request->src_mid);
-			// go to state SM
+			// go to state S
 			state = MSI_CACHE_S;
 			break;
 		case GETM:
@@ -301,7 +293,6 @@ inline void MSI_protocol::do_snoop_SM (Mreq *request){
 		case GETS:
 			break;
 		case GETM:
-			/** test if this is our GETM */
 			state = MSI_CACHE_IM;
 			Sim->cache_misses++;
 			break;
