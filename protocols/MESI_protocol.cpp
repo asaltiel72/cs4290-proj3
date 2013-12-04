@@ -20,7 +20,7 @@ MESI_protocol::~MESI_protocol ()
 
 void MESI_protocol::dump (void)
 {
-    const char *block_states[8] = {"X","I", "ISE", "IM", "S", "SM", "E", "M"};
+    const char *block_states[8] = {"X", "I", "ISE", "IM", "S", "SM", "E", "M"};
     fprintf (stderr, "MESI_protocol - state: %s\n", block_states[state]);
 }
 
@@ -35,7 +35,6 @@ void MESI_protocol::process_cache_request (Mreq *request)
 		case MESI_CACHE_E: do_cache_E(request); break;
 		case MESI_CACHE_M: do_cache_M(request); break;
 		default:
-			printf("----> %i <------\n", state);
 		    fatal_error ("Invalid Cache State for MESI Protocol\n");
     }
 }
@@ -51,7 +50,6 @@ void MESI_protocol::process_snoop_request (Mreq *request)
 		case MESI_CACHE_E: do_snoop_E(request); break;
 		case MESI_CACHE_M: do_snoop_M(request); break;
 		default:
-			printf("----> %i <------\n", state);
 			fatal_error ("Invalid Cache State for MESI Protocol\n");
     }
 }

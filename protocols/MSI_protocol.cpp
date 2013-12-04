@@ -169,7 +169,7 @@ inline void MSI_protocol::do_cache_SM (Mreq *request){
 			fatal_error("Should only have one outstanding request per processor!");
 		default:
 		    request->print_msg (my_table->moduleID, "ERROR");
-		    fatal_error ("Client: I state shouldn't see this message\n");
+		    fatal_error ("Client: S state shouldn't see this message\n");
 	}
 }
 
