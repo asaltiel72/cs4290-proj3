@@ -20,7 +20,7 @@ MOSI_protocol::~MOSI_protocol ()
 
 void MOSI_protocol::dump (void)
 {
-    const char *block_states[9] = {"X","I","IS","IM","S","SM","O","OM","M"};
+    const char *block_states[9] = {"X", "I", "IS", "IM", "S", "SM", "O", "OM", "M"};
     fprintf (stderr, "MOSI_protocol - state: %s\n", block_states[state]);
 }
 
