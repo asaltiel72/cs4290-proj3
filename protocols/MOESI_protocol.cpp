@@ -214,6 +214,7 @@ inline void MOESI_protocol::do_snoop_IM (Mreq *request){
 		    fatal_error ("Client: IM state shouldn't see this message\n");
 	}
 }
+
 inline void MOESI_protocol::do_snoop_ISE (Mreq *request){
 	switch (request->msg) {
 		case GETS:
