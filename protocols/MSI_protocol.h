@@ -14,7 +14,7 @@ typedef enum {
     MSI_CACHE_IM,		//	need to wait for data in these states
     MSI_CACHE_S,
     MSI_CACHE_M,
-    MSI_CACHE_SM		
+    MSI_CACHE_SM		// for the transition from S to M
 } MSI_cache_state_t;
 
 class MSI_protocol : public Protocol {

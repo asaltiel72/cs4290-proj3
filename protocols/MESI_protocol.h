@@ -23,12 +23,15 @@ public:
     MESI_protocol (Hash_table *my_table, Hash_entry *my_entry);
     ~MESI_protocol ();
 
+	// Cache state for this line
     MESI_cache_state_t state;
     
     void process_cache_request (Mreq *request);
     void process_snoop_request (Mreq *request);
     void dump (void);
 
+	/* Functions that specify the actions to take on requests from the processor
+       when the cache is in various states */
     inline void do_cache_I (Mreq *request);
     inline void do_cache_ISE (Mreq *request);
     inline void do_cache_IM (Mreq *request);
@@ -37,6 +40,8 @@ public:
     inline void do_cache_E (Mreq *request);
     inline void do_cache_M (Mreq *request);
 
+	/* Functions that specify the actions to take on snooped requests
+       when the cache is in various states */
     inline void do_snoop_I (Mreq *request);
     inline void do_snoop_ISE (Mreq *request);
     inline void do_snoop_IM (Mreq *request);
